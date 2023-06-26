@@ -14,7 +14,11 @@ class RentalController extends Controller
      */
     public function index()
     {
-        //
+        $rentals = Rental::with(['user', 'book'])->paginate(10);
+        $books = Book::all();
+        $users = User::all();
+
+        return view('rental.index', ['rentals' => $rentals, 'books' => $books, 'users' => $users]);
     }
 
     /**
@@ -30,7 +34,13 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Rental::create([
+            'user_id' => $request->user_id,
+            'book_id' => $request->book_id,
+            'borrow_date' => $request->borrow_date
+        ]);
+
+        return response()->json(['success'=> 'Rental saved successfully.']);
     }
 
     /**
@@ -38,7 +48,7 @@ class RentalController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Rental::with(['user', 'book'])->find($id);
     }
 
     /**
@@ -54,7 +64,11 @@ class RentalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rental = Rental::find($id);
+        $rental->user_id = $request->user_id;
+        $rental->book_id = $request->book_id;
+        $rental->borrow_date = $request->borrow_date;
+        return $rental->save();
     }
 
     /**
@@ -62,6 +76,6 @@ class RentalController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Rental::find($id)->delete();
     }
 }
