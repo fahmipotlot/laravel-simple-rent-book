@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rental;
 use App\Models\Book;
+use Carbon\Carbon;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -14,7 +16,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        $month = Rental::whereMonth('borrow_date', Carbon::now()->month)->get()->count();
+
+        $sixmonth = Rental::whereBetween('borrow_date', 
+                [Carbon::now()->subMonth(6)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')]
+            )->get()->count();
+
+        $topuser = DB::table('rentals')
+            ->select('user_id', 'users.name as username', DB::raw('count(*) as total'))
+            ->join('users', 'users.id', '=', 'rentals.user_id')
+            ->groupBy(['user_id', 'username'])
+            ->orderBy('total', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('dashboard', compact('month', 'sixmonth', 'topuser'));
     }
 
     /**

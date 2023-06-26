@@ -23,7 +23,7 @@
 				@endforeach
 			</tbody>
 		</table>
-					<div class="panel-heading">Get All Child</div>
+				<div class="panel-heading">Get All Child</div>
 					<div class="panel-body">
 							<form action="" method="GET">
 									<div class="control-group after-add-more">
@@ -33,13 +33,13 @@
 									<br/>
 									<button class="btn btn-success" type="submit">Submit</button>
 							</form>
-			<br/>
-			@isset($all_child)
-				@foreach($all_child as $child)
-					<li>{{ $child }}</li>
-				@endforeach
-			@endisset
-		</div>
+						<br/>
+						@isset($all_child)
+							@foreach($all_child as $child)
+								<li>{{ $child }}</li>
+							@endforeach
+						@endisset
+					</div>
 			</div>
 	</div>
 @endsection
