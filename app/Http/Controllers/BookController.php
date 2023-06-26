@@ -12,7 +12,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::paginate(10);
+
+        return view('book.index', ['books' => $books]);
     }
 
     /**
@@ -28,7 +30,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Book::create([
+            'name' => $request->name
+        ]);
+
+        return response()->json(['success'=> 'Book saved successfully.']);
     }
 
     /**
@@ -36,7 +42,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Book::find($id);
     }
 
     /**
@@ -52,7 +58,9 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->name = $request->name;
+        return $book->save();
     }
 
     /**
@@ -60,6 +68,6 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Book::find($id)->delete();
     }
 }

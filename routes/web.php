@@ -19,7 +19,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [AlgoritmaController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index']);
 Route::get('/soal-satu', [AlgoritmaController::class, 'soalSatu'])->name('satu');
 Route::get('/soal-dua', [AlgoritmaController::class, 'soalDua'])->name('dua');
 Route::get('/soal-tiga', [AlgoritmaController::class, 'soalTiga'])->name('tiga');
