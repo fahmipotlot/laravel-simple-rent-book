@@ -12,7 +12,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(10);
+        if (request()->q) {
+            $books = Book::where(function ($query) {
+                    return $query->where(\DB::raw("LOWER(name)"), 'LIKE', "%".strtolower(request()->input('q'))."%");
+                })
+                ->paginate(10);
+        } else {
+            $books = Book::paginate(10);
+        }
 
         return view('book.index', ['books' => $books]);
     }

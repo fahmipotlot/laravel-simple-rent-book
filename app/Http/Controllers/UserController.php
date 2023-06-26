@@ -12,7 +12,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        if (request()->q) {
+            $users = User::where(function ($query) {
+                    return $query->where(\DB::raw("LOWER(name)"), 'LIKE', "%".strtolower(request()->input('q'))."%");
+                })
+                ->paginate(10);
+        } else {
+            $users = User::paginate(10);
+        }
 
         return view('user.index', ['users' => $users]);
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rental;
 use App\Models\Book;
+use DB;
 
 class RentalController extends Controller
 {
@@ -14,7 +15,18 @@ class RentalController extends Controller
      */
     public function index()
     {
-        $rentals = Rental::with(['user', 'book'])->paginate(10);
+        if (request()->q) {
+            $rentals = Rental::whereHas('user', function ($query) {
+                    return $query->where(DB::raw("LOWER(users.name)"), 'LIKE', "%".strtolower(request()->input('q'))."%");
+                })
+                ->orWhereHas('book', function ($query) {
+                    return $query->where(DB::raw("LOWER(books.name)"), 'LIKE', "%".strtolower(request()->input('q'))."%");
+                })
+                ->with(['user', 'book'])
+                ->paginate(10);
+        } else {
+            $rentals = Rental::with(['user', 'book'])->paginate(10);
+        }
         $books = Book::all();
         $users = User::all();
 

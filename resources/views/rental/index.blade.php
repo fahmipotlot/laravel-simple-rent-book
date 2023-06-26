@@ -1,10 +1,23 @@
 @extends('layouts.app')
  
-@section('title', 'Book List')
+@section('title', 'Rental List')
  
 @section('content')
 
 	<a class="btn btn-success" href="javascript:void(0)" id="createNewUser"> Create New Rentals</a>
+	<br>
+	<br>
+	<form action="">
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="q" name="q" placeholder="Search" value="{{ request()->q }}" maxlength="50" required="">
+			</div>
+		</div>
+		<br>
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-primary">Search</button>
+		</div>
+	</form>
 	<table class="table">
 		<thead>
 			<tr>
