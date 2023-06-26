@@ -1,11 +1,8 @@
-<html lang="en">
-<head>
-	<title>Soal  Algoritma 2</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
+@extends('layouts.app')
+ 
+@section('title', 'Soal 2')
+ 
+@section('content')
         <div class="panel panel-default">
             <div class="panel-heading">Get Fibonanci Number</div>
             <div class="panel-body">
@@ -25,6 +22,4 @@
 				@endisset
 			</div>
         </div>
-    </div>
-</body>
-</html>
+@endsection

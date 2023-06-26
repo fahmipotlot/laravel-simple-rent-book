@@ -1,49 +1,45 @@
-<html lang="en">
-<head>
-	<title>Soal  Algoritma 1</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        <div class="panel panel-default">
-			<h3>Table</h3>
-			<table class="table">
-				<thead>
+@extends('layouts.app')
+ 
+@section('title', 'Soal 1')
+ 
+@section('content')
+	<div class="panel panel-default">
+		<h3>Table</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Code</th>
+					<th>Name</th>
+					<th>Parent</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($data as $dt)
 					<tr>
-						<th>Code</th>
-						<th>Name</th>
-						<th>Parent</th>
+						<td>{{ $dt['code'] }}</td>
+						<td>{{ $dt['name'] }}</td>
+						<td>{{ $dt['parent'] }}</td>
 					</tr>
-				</thead>
-				<tbody>
-					@foreach($data as $dt)
-						<tr>
-							<td>{{ $dt['code'] }}</td>
-							<td>{{ $dt['name'] }}</td>
-							<td>{{ $dt['parent'] }}</td>
-						</tr>
-					@endforeach
-				</tbody>
-			</table>
-            <div class="panel-heading">Get All Child</div>
-            <div class="panel-body">
-                <form action="" method="GET">
-                    <div class="control-group after-add-more">
-                        <label>Code</label>
-                        <input type="text" name="input" class="form-control" value={{ request()->get('input') }}>
-                    </div>
-                    <br/>
-                    <button class="btn btn-success" type="submit">Submit</button>
-                </form>
-				<br/>
-				@isset($all_child)
-					@foreach($all_child as $child)
-						<li>{{ $child }}</li>
-					@endforeach
-				@endisset
+				@endforeach
+			</tbody>
+		</table>
+					<div class="panel-heading">Get All Child</div>
+					<div class="panel-body">
+							<form action="" method="GET">
+									<div class="control-group after-add-more">
+											<label>Code</label>
+											<input type="text" name="input" class="form-control" value={{ request()->get('input') }}>
+									</div>
+									<br/>
+									<button class="btn btn-success" type="submit">Submit</button>
+							</form>
+			<br/>
+			@isset($all_child)
+				@foreach($all_child as $child)
+					<li>{{ $child }}</li>
+				@endforeach
+			@endisset
+		</div>
 			</div>
-        </div>
-    </div>
-</body>
-</html>
+	</div>
+@endsection

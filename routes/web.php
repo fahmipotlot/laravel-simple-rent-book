@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlgoritmaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\RentalController;
+use App\Http\Controllers\DashboardController;
  
 
 /*
@@ -15,9 +19,11 @@ use App\Http\Controllers\AlgoritmaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/soal-satu', [AlgoritmaController::class, 'soalSatu']);
-Route::get('/soal-dua', [AlgoritmaController::class, 'soalDua']);
-Route::get('/soal-tiga', [AlgoritmaController::class, 'soalTiga']);
+Route::get('/', [AlgoritmaController::class, 'index']);
+Route::get('/soal-satu', [AlgoritmaController::class, 'soalSatu'])->name('satu');
+Route::get('/soal-dua', [AlgoritmaController::class, 'soalDua'])->name('dua');
+Route::get('/soal-tiga', [AlgoritmaController::class, 'soalTiga'])->name('tiga');
+
+Route::resource('users', UserController::class);
+Route::resource('books', BookController::class);
+Route::resource('rentals', RentalController::class);
